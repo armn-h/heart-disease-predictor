@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+
+# Streamlit
+.streamlit/
+*.streamlit
+
+# Data and models (optional - include these)
+# *.pkl  <- Remove # if you want to include model files
+# *.csv  <- Remove # if you want to include data
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Images (optional - remove # to exclude)
+# *.png
+# *.jpg
+# *.jpeg
