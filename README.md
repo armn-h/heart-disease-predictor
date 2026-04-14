@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🫀 Heart Disease Risk Predictor
 
 AI-powered cardiac health assessment using Machine Learning.
@@ -78,3 +79,7 @@ Created as a B.Tech Mini Project
 
 UCI Machine Learning Repository - Heart Disease Dataset  
 https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/
+=======
+# heart-disease-predictor
+AI-powered cardiac health assessment
+>>>>>>> 82ea64ec5c7f7f4a15c280bfd30c55f9a05487cc
