@@ -88,7 +88,7 @@ with col2:
     thalach = st.number_input("Max Heart Rate", min_value=60, max_value=220, value=168)
     cp = st.select_slider("Chest Pain Type", options=[0, 1, 2, 3, 4], value=3)
     oldpeak = st.number_input("ST Depression", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
-    exang = st.radio("Exercise-Induced Angina", ["No", "Yes"], horizontal=True, label_visibility="collapsed")
+    exang = st.radio("Exercise-Induced Angina", ["No", "Yes"], horizontal=True)
     exang_val = 0 if exang == "No" else 1
 
 # Advanced parameters
@@ -96,7 +96,7 @@ with st.expander("📊 Advanced Parameters"):
     col_adv1, col_adv2 = st.columns(2)
     
     with col_adv1:
-        fbs = st.radio("High Fasting Blood Sugar", ["No", "Yes"], horizontal=True, label_visibility="collapsed")
+        fbs = st.radio("High Fasting Blood Sugar", ["No", "Yes"], horizontal=True)
         fbs_val = 0 if fbs == "No" else 1
         restecg = st.select_slider("Resting ECG", options=[0, 1, 2], value=1)
         slope = st.select_slider("ST Segment Slope", options=[0, 1, 2], value=2)
