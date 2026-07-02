@@ -86,7 +86,15 @@ with col1:
 with col2:
     st.subheader("Heart Metrics")
     thalach = st.number_input("Max Heart Rate", min_value=60, max_value=220, value=168)
-    cp = st.select_slider("Chest Pain Type", options=[0, 1, 2, 3, 4], value=3)
+    cp_options = {
+        "Typical Angina (0)": 0,
+        "Atypical Angina (1)": 1,
+        "Non-anginal Pain (2)": 2,
+        "Asymptomatic (3)": 3,
+        "Unknown / Other (4)": 4
+    }
+    cp_label = st.selectbox("Chest Pain Type", options=list(cp_options.keys()), index=3)
+    cp = cp_options[cp_label]
     oldpeak = st.number_input("ST Depression", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
     exang = st.radio("Exercise-Induced Angina", ["No", "Yes"], horizontal=True)
     exang_val = 0 if exang == "No" else 1
@@ -98,12 +106,31 @@ with st.expander("📊 Advanced Parameters"):
     with col_adv1:
         fbs = st.radio("High Fasting Blood Sugar", ["No", "Yes"], horizontal=True)
         fbs_val = 0 if fbs == "No" else 1
-        restecg = st.select_slider("Resting ECG", options=[0, 1, 2], value=1)
-        slope = st.select_slider("ST Segment Slope", options=[0, 1, 2], value=2)
+        restecg_options = {
+            "Normal (0)": 0,
+            "ST-T Wave Abnormality (1)": 1,
+            "Left Ventricular Hypertrophy (2)": 2
+        }
+        restecg_label = st.selectbox("Resting ECG", options=list(restecg_options.keys()), index=1)
+        restecg = restecg_options[restecg_label]
+        slope_options = {
+            "Upsloping (0)": 0,
+            "Flat (1)": 1,
+            "Downsloping (2)": 2
+        }
+        slope_label = st.selectbox("ST Segment Slope", options=list(slope_options.keys()), index=1)
+        slope = slope_options[slope_label]
     
     with col_adv2:
         ca = st.number_input("Major Vessels", min_value=0, max_value=3, value=2)
-        thal = st.select_slider("Thalassemia Type", options=[0, 1, 2, 3], value=3)
+        thal_options = {
+            "Normal (0)": 0,
+            "Fixed Defect (1)": 1,
+            "Reversible Defect (2)": 2,
+            "Unknown / Other (3)": 3
+        }
+        thal_label = st.selectbox("Thalassemia Type", options=list(thal_options.keys()), index=0)
+        thal = thal_options[thal_label]
 
 st.divider()
 
