@@ -92,20 +92,17 @@ st.divider()
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("<div class='section-box'>", unsafe_allow_html=True)
-    st.markdown("<div class='section-title'>Patient Information</div>", unsafe_allow_html=True)
-    age = st.number_input("Age (years)", min_value=25, max_value=85, value=50)
-    gender = st.radio("Gender", ["Female", "Male"], horizontal=True, label_visibility="collapsed")
-    gender_val = 0 if gender == "Female" else 1
-    trestbps = st.number_input("Blood Pressure (mm Hg)", min_value=90, max_value=200, value=125)
-    chol = st.number_input("Cholesterol (mg/dl)", min_value=100, max_value=400, value=212)
-    st.markdown("</div>", unsafe_allow_html=True)
+    with st.expander("Patient Information", expanded=True):
+        age = st.number_input("Age (years)", min_value=25, max_value=85, value=50)
+        gender = st.radio("Gender", ["Female", "Male"], horizontal=True, label_visibility="collapsed")
+        gender_val = 0 if gender == "Female" else 1
+        trestbps = st.number_input("Blood Pressure (mm Hg)", min_value=90, max_value=200, value=125)
+        chol = st.number_input("Cholesterol (mg/dl)", min_value=100, max_value=400, value=212)
 
 with col2:
-    st.markdown("<div class='section-box'>", unsafe_allow_html=True)
-    st.markdown("<div class='section-title'>Heart Metrics</div>", unsafe_allow_html=True)
-    thalach = st.number_input("Max Heart Rate (bpm)", min_value=60, max_value=220, value=168)
-    cp_options = {
+    with st.expander("Heart Metrics", expanded=True):
+        thalach = st.number_input("Max Heart Rate (bpm)", min_value=60, max_value=220, value=168)
+        cp_options = {
         "Typical Angina (0)": 0,
         "Atypical Angina (1)": 1,
         "Non-anginal Pain (2)": 2,
@@ -120,9 +117,7 @@ with col2:
     st.markdown("</div>", unsafe_allow_html=True)
 
 # Advanced parameters
-st.markdown("<div class='section-box'>", unsafe_allow_html=True)
-st.markdown("<div class='section-title'>Advanced Parameters</div>", unsafe_allow_html=True)
-with st.expander("📊 Advanced Parameters"):
+with st.expander("📊 Advanced Parameters", expanded=False):
     col_adv1, col_adv2 = st.columns(2)
     
     with col_adv1:
