@@ -119,7 +119,6 @@ if predict:
     
     scaled_input = scaler.transform(input_data)
     prediction = model.predict(scaled_input)[0]
-    confidence = model.predict_proba(scaled_input)[0]
     
     st.divider()
     
@@ -134,33 +133,18 @@ if predict:
     
     st.markdown("")
     
-    # Confidence scores
-    st.subheader("Model Confidence")
-    col_m1, col_m2, col_m3 = st.columns(3)
+    if prediction == 0:
+        st.markdown(
+            "**Explanation:** This profile indicates a lower probability of heart disease based on the selected inputs. "
+            "Maintain healthy habits, monitor symptoms, and follow routine checkups."
+        )
+    else:
+        st.markdown(
+            "**Explanation:** This profile suggests an elevated risk of heart disease. "
+            "Consider consulting a healthcare professional and reviewing lifestyle factors such as diet, exercise, and stress."
+        )
     
-    with col_m1:
-        st.markdown(f"""
-            <div class='metric-box'>
-                <small>No Disease</small>
-                <div class='metric-value' style='color: #27ae60;'>{confidence[0]*100:.1f}%</div>
-            </div>
-        """, unsafe_allow_html=True)
-    
-    with col_m2:
-        st.markdown(f"""
-            <div class='metric-box'>
-                <small>Confidence Level</small>
-                <div class='metric-value'>{max(confidence)*100:.0f}%</div>
-            </div>
-        """, unsafe_allow_html=True)
-    
-    with col_m3:
-        st.markdown(f"""
-            <div class='metric-box'>
-                <small>Disease</small>
-                <div class='metric-value' style='color: #e74c3c;'>{confidence[1]*100:.1f}%</div>
-            </div>
-        """, unsafe_allow_html=True)
+    st.markdown("")
     
     # Summary table
     st.subheader("Health Summary")
