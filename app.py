@@ -45,6 +45,16 @@ st.markdown("""
         font-weight: bold;
         font-size: 1.2rem;
     }
+
+    .risk-moderate {
+        background-color: #fff4d6;
+        color: #b97b00;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
     
     .metric-box {
         background-color: #f8f9fa;
@@ -103,18 +113,17 @@ with col2:
     with st.expander("Heart Metrics", expanded=True):
         thalach = st.number_input("Max Heart Rate (bpm)", min_value=60, max_value=220, value=168)
         cp_options = {
-        "Typical Angina (0)": 0,
-        "Atypical Angina (1)": 1,
-        "Non-anginal Pain (2)": 2,
-        "Asymptomatic (3)": 3,
-        "Unknown / Other (4)": 4
-    }
-    cp_label = st.selectbox("Chest Pain Type", options=list(cp_options.keys()), index=3)
-    cp = cp_options[cp_label]
-    oldpeak = st.number_input("ST Depression", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
-    exang = st.radio("Exercise-Induced Angina", ["No", "Yes"], horizontal=True)
-    exang_val = 0 if exang == "No" else 1
-    st.markdown("</div>", unsafe_allow_html=True)
+            "Typical Angina (0)": 0,
+            "Atypical Angina (1)": 1,
+            "Non-anginal Pain (2)": 2,
+            "Asymptomatic (3)": 3,
+            "Unknown / Other (4)": 4
+        }
+        cp_label = st.selectbox("Chest Pain Type", options=list(cp_options.keys()), index=3)
+        cp = cp_options[cp_label]
+        oldpeak = st.number_input("ST Depression", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
+        exang = st.radio("Exercise-Induced Angina", ["No", "Yes"], horizontal=True)
+        exang_val = 0 if exang == "No" else 1
 
 # Advanced parameters
 with st.expander("📊 Advanced Parameters", expanded=False):
@@ -167,29 +176,32 @@ if predict:
     
     st.divider()
     
-    # Risk result
+    # Risk score / probability bands
+    prob = model.predict_proba(scaled_input)[0][1]
+    if prob < 0.4:
+        band = "LOW RISK"
+        band_class = "risk-low"
+        advice = "This profile indicates a lower probability of heart disease. Maintain healthy habits, monitor symptoms, and follow routine checkups."
+    elif prob < 0.7:
+        band = "MODERATE RISK"
+        band_class = "risk-moderate"
+        advice = "This profile indicates a moderate probability of heart disease. Consider following up with a healthcare professional and reviewing lifestyle factors."
+    else:
+        band = "HIGH RISK"
+        band_class = "risk-high"
+        advice = "This profile suggests an elevated probability of heart disease. Consider consulting a healthcare professional and reviewing diet, exercise, and symptoms."
+    
     col_res1, col_res2, col_res3 = st.columns([1, 1, 1])
     
     with col_res2:
-        if prediction == 0:
-            st.markdown("<div class='risk-low'>✅ LOW RISK</div>", unsafe_allow_html=True)
-        else:
-            st.markdown("<div class='risk-high'>⚠️ HIGH RISK</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='{band_class}'>⚠️ {band}</div>", unsafe_allow_html=True)
     
     st.markdown("")
-    
-    if prediction == 0:
-        st.markdown(
-            "**Explanation:** This profile indicates a lower probability of heart disease based on the selected inputs. "
-            "Maintain healthy habits, monitor symptoms, and follow routine checkups."
-        )
-    else:
-        st.markdown(
-            "**Explanation:** This profile suggests an elevated risk of heart disease. "
-            "Consider consulting a healthcare professional and reviewing lifestyle factors such as diet, exercise, and stress."
-        )
-    
+    st.markdown(f"**Estimated probability of disease:** {prob*100:.1f}%")
     st.markdown("")
+    st.markdown(advice)
+    st.markdown("")
+    st.markdown("**Risk band guide:** Low = < 40%, Moderate = 40–70%, High = > 70%")
     
     # Summary table
     st.subheader("Health Summary")
