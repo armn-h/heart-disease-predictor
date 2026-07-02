@@ -194,7 +194,8 @@ if predict:
     col_res1, col_res2, col_res3 = st.columns([1, 1, 1])
     
     with col_res2:
-        st.markdown(f"<div class='{band_class}'>⚠️ {band}</div>", unsafe_allow_html=True)
+        icon = "✅" if band == "LOW RISK" else "⚠️"
+        st.markdown(f"<div class='{band_class}'>{icon} {band}</div>", unsafe_allow_html=True)
     
     st.markdown("")
     st.markdown(f"**Estimated probability of disease:** {prob*100:.1f}%")
