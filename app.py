@@ -211,7 +211,7 @@ if predict:
         "Metric": ["Age", "Heart Rate", "Cholesterol", "Blood Pressure"],
         "Value": [f"{age} yrs", f"{thalach} bpm", f"{chol} mg/dl", f"{trestbps} mm Hg"],
         "Assessment": [
-            "✅ Normal" if 40 <= age <= 70 else "⚠️ Check",
+            "✅ Normal" if age < 50 else "⚠️ Check",
             "✅ Healthy" if thalach >= 100 else "⚠️ Low",
             "✅ Good" if chol < 240 else "⚠️ Elevated",
             "✅ Normal" if trestbps < 140 else "⚠️ Elevated"
