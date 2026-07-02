@@ -85,7 +85,7 @@ with col1:
 
 with col2:
     st.subheader("Heart Metrics")
-    thalach = st.number_input("Max Heart Rate", min_value=60, max_value=220, value=168)
+    thalach = st.number_input("Max Heart Rate (bpm)", min_value=60, max_value=220, value=168)
     cp_options = {
         "Typical Angina (0)": 0,
         "Atypical Angina (1)": 1,
