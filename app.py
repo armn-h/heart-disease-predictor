@@ -60,6 +60,22 @@ st.markdown("""
         color: #3498db;
         margin: 10px 0;
     }
+
+    .section-box {
+        background-color: #ffffff;
+        border: 1px solid #dfe3e8;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+        margin-bottom: 24px;
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #283747;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -76,15 +92,18 @@ st.divider()
 col1, col2 = st.columns(2)
 
 with col1:
-    st.subheader("Patient Information")
+    st.markdown("<div class='section-box'>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>Patient Information</div>", unsafe_allow_html=True)
     age = st.number_input("Age (years)", min_value=25, max_value=85, value=50)
     gender = st.radio("Gender", ["Female", "Male"], horizontal=True, label_visibility="collapsed")
     gender_val = 0 if gender == "Female" else 1
     trestbps = st.number_input("Blood Pressure (mm Hg)", min_value=90, max_value=200, value=125)
     chol = st.number_input("Cholesterol (mg/dl)", min_value=100, max_value=400, value=212)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st.subheader("Heart Metrics")
+    st.markdown("<div class='section-box'>", unsafe_allow_html=True)
+    st.markdown("<div class='section-title'>Heart Metrics</div>", unsafe_allow_html=True)
     thalach = st.number_input("Max Heart Rate (bpm)", min_value=60, max_value=220, value=168)
     cp_options = {
         "Typical Angina (0)": 0,
@@ -98,8 +117,11 @@ with col2:
     oldpeak = st.number_input("ST Depression", min_value=0.0, max_value=10.0, value=1.0, step=0.1)
     exang = st.radio("Exercise-Induced Angina", ["No", "Yes"], horizontal=True)
     exang_val = 0 if exang == "No" else 1
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # Advanced parameters
+st.markdown("<div class='section-box'>", unsafe_allow_html=True)
+st.markdown("<div class='section-title'>Advanced Parameters</div>", unsafe_allow_html=True)
 with st.expander("📊 Advanced Parameters"):
     col_adv1, col_adv2 = st.columns(2)
     
@@ -131,6 +153,7 @@ with st.expander("📊 Advanced Parameters"):
         }
         thal_label = st.selectbox("Thalassemia Type", options=list(thal_options.keys()), index=0)
         thal = thal_options[thal_label]
+    st.markdown("</div>", unsafe_allow_html=True)
 
 st.divider()
 
